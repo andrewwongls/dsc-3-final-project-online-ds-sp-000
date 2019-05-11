@@ -1,0 +1,2051 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{student}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{final-project-submission}{%
+\subsection{Final Project Submission}\label{final-project-submission}}
+
+Please fill out: * Student name: Andrew Wong * Student pace: self paced
+* Scheduled project review date/time: * Instructor name: * Blog post
+URL:
+
+    \hypertarget{executive-summary}{%
+\section{EXECUTIVE SUMMARY}\label{executive-summary}}
+
+    \hypertarget{basic-income-debate-and-most-recent-progress}{%
+\subsubsection{BASIC INCOME DEBATE, AND MOST RECENT
+PROGRESS}\label{basic-income-debate-and-most-recent-progress}}
+
+\hypertarget{basic-income-debate-through-data-science-lens}{%
+\subsubsection{BASIC INCOME DEBATE THROUGH DATA SCIENCE
+LENS}\label{basic-income-debate-through-data-science-lens}}
+
+\hypertarget{the-osmeic-framework---combining-data-science-and-social-science}{%
+\paragraph{THE OSMEIC FRAMEWORK - COMBINING DATA SCIENCE AND SOCIAL
+SCIENCE}\label{the-osmeic-framework---combining-data-science-and-social-science}}
+
+\hypertarget{hypothesis-testing-outcome}{%
+\paragraph{HYPOTHESIS TESTING
+OUTCOME}\label{hypothesis-testing-outcome}}
+
+\hypertarget{predictive-analytics-outcome}{%
+\paragraph{PREDICTIVE ANALYTICS
+OUTCOME}\label{predictive-analytics-outcome}}
+
+    \hypertarget{introduction}{%
+\section{INTRODUCTION}\label{introduction}}
+
+\hypertarget{what-is-basic-income}{%
+\subsection{WHAT IS BASIC INCOME}\label{what-is-basic-income}}
+
+I attempt to understand and provide insight into a contemporary issue
+revolving the debate of basic income. This issue is getting more
+prominent in mainstream and social media. This heighten publicity is due
+to the fact that the Future of Work -combination of increasing workplace
+automation, growing gig economy, and widening income inequality, and
+declining economic mobility. It is predicted that the Future of Work
+will likely to displace a large population to be out of work. Therefore,
+increase the likelihood of social unrest, among other negative social
+implications. The concept of basic income (also known as universal
+income) is a payment made to all adult individuals that allows people to
+meet their basic needs. It is made without any work or activity tests.
+There are three main components of basic income: First, it is universal.
+It is paid automatically to all individuals (or all adult individuals)
+without a means/income test. Second, it is unconditional. It is paid
+without conditions (for example, repoting on your job search activity).
+Third, it is adequate. It is set at a sufficient level to protect the
+general population against poverty. The idea of basic income is not new.
+It was discussed and debated since the First World War, and in different
+disguises. For the purpose of this project, it will be beneficial for us
+to go down the history lane to understand where we are coming from. This
+will arm us with more context to understand forward. \textbf{The State
+Bonus Scheme - Miller - First World War} The Milner proposed an
+allowance `which would be just sufficient to maintain life and liberty
+if all else failed'. The allowance would be universal and unconditional.
+It would be paid to all British living in Britain permanently with
+mothers receiving payments on behalf of children. There would be no work
+test. The Milner argued that pushing people into work by threatening
+them with starvation only led to inefficient workers. \textbf{Guaranteed
+income --- Theobald - Early 1960s} American futurist Robert Theobald
+predicted that computers would become increasingly fast and powerful.
+With computers and other technology increasingly able to take over
+routine tasks, workers would find themselves displaced by machines. Both
+blue-collar and middle-income white-collar workers would be affected. In
+a 1967 interview, Theobald argued that: \emph{\ldots{} we must face up
+to the fact that we cannot afford to preserve our present socioeconomic
+system, which requires every man to be able to find a job at a time when
+the computer can take over toil, can take over all the structured tasks,
+that is the tasks for which the decision-making rules can be set out in
+advance. And therefore we have to break the present link between jobs
+and income. The necessary first step in this direction is a guaranteed
+income.} \textbf{Negative income tax --- Friedman - Early 1960s}
+
+In 1962 economist Milton Friedman proposed a negative income tax (NIT)
+as simpler way to protect individuals against poverty:
+
+For an individual with no income, the NIT is like an income support
+payment. As with most income support payments, the amount the person
+receives reduces as they earn additional income. At a certain level of
+income they reach the break-even point and pay nothing, after that point
+they start paying tax. The NIT integrates the income support system into
+the tax system.
+
+Friedman argued that the NIT should replace current welfare
+programs---both cash payments and services. He argued that the scheme
+would have a number of advantages over current arrangements:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  It would help the poor in the most direct way possible.
+\item
+  It would treat them as responsible individuals, not as incompetent
+  wards of the state.
+\item
+  It would give them an incentive to help themselves.
+\item
+  It would cost less than present programs yet help the poor more.
+\item
+  It would eliminate almost entirely the cumbrous welfare bureaucracy
+  running the present programs.
+\item
+  It could not be used as a political slush fund, as so many current
+  programs---notably in the `war on poverty'---can be and have been
+  used. 
+\end{enumerate}
+
+\textbf{WHY BASIC INCOME IS BACK IN THE DEBATE? THE ARGUMENT FOR}
+
+As I stated earlier, this is due to a number of combined factors -
+increasing workplace automation, growing gig economy, and widening
+income inequality, and declining economic mobility.
+
+\textbf{WHY BASIC INCOME IS HISTORY? THE ARGUMENT AGAINST}
+
+There are three major argument against the implementation of basic
+income. 1. There is no job destruction. The optimist forecaster argued
+that technological change will not result in widespread job destruction.
+2. The other welfare services will be negatively impacted. The basic
+income will likely to consume significant amount of current budgetary
+commitment of services such as aged care, educations, and health care.
+3. It may shift large scale human motivation to work. It is likely low
+wage earner will not be participating, and therefore contributing to the
+general productive economy. They will be rent seeker.
+
+    \hypertarget{the-osemic-framework}{%
+\subsection{THE OSEMIC FRAMEWORK}\label{the-osemic-framework}}
+
+There are a few popular data science frameworks such as:
+
+\textbf{Harvard Data Science Workflow:} This workflow centers on
+business questions to drive data analysis. By asking powerful questions,
+this model drive better data context.
+
+\textbf{KDD Workflow:} The Knowledge Discovery in Databases (KDD):
+workflow centers on complext data discovery, especially in legacy data
+warehouse systems.
+
+\textbf{CRISP-DM Workflow:} The Cross-Industry Standard Process for Data
+Mining (CRISP-DM) workflow centers on iterative data analysis. It is
+based on a simple approach of bringing analytics to production in a
+business-oriented and systematic way.
+
+\textbf{Data Journalism Workflow:} This is a very interesting workflow
+because it centers around storytelling, and sharing of information
+through visual, and always thinks about the readers context.
+
+\textbf{OSEMN Workflow}: This workflow centers on a rapid, iterative
+data discovery, scrubbing, exploration, modelling, and interpretation.
+
+After considerations of different data science frameworks (as above), I
+have decided to creatively combined three frameworks. First, OSEMN
+workflow to drive data science discipline.
+
+Second, Data Journalism workflow to drive the open and continuous debate
+of basic income. The basic income debate will likely to persist next few
+years. Therefore, this workflow helps to provide continuity.
+
+Third, Analytical Sociology framework to drive sociological discussion.
+
+    \begin{figure}
+\centering
+\includegraphics{attachment:Different\%20Workflows.png}
+\caption{Different\%20Workflows.png}
+\end{figure}
+
+    With a bit of creative reorg of the OSEMN workflow, Data Journalism
+workflow, and Analytical Sociology framework above, I have developed a
+workflow that I will use through the this notebook to move the basic
+income debate in a more exploratory and insightful manner - a
+combination of data science (predictive analytics), journalism
+(capturing the latest news about basic income), and analytical sociology
+(basic income is essentially a sociological issue, and righly so a need
+for sociological perspective).
+
+The diagram below illustrates the OSEMN workflow in Yellow (OSEMI), and
+Data Journalism workflow and Analytical Sociology in Green
+(Contextualize).
+
+THE Obtain, Scrub, Explore, Model, and Interpret worflow is fairly
+well-known in the industry, therefore I will not go into details. The
+part that I have creatively combined is the Data Journalism and
+Analytical Sociology into Contextualize. Throughout this notebook, as I
+explore the Dalia dataset (and perhaps importing new dataset) to
+continue on the following:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Understand current topic debate. While going exploring the dataset,
+  and surfacing patterns, I will put on the journalist and sociologist
+  view of the world and basic income.
+\item
+  If there is opportunity, I will start to explore into other datasets.
+  This will be a time consuming exercise, however it will be worthwhile
+  contribution to the basic income debate.
+\end{enumerate}
+
+    \begin{figure}
+\centering
+\includegraphics{attachment:OSEMIC\%20Framework.png}
+\caption{OSEMIC\%20Framework.png}
+\end{figure}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}91}]:} \PY{c+c1}{\PYZsh{} import necessary libraries}
+         \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+         \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+         \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+         \PY{k+kn}{import} \PY{n+nn}{xgboost} \PY{k}{as} \PY{n+nn}{xgb}
+         \PY{k+kn}{import} \PY{n+nn}{warnings}
+         \PY{n}{warnings}\PY{o}{.}\PY{n}{filterwarnings}\PY{p}{(}\PY{n}{action}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ignore}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+         \PY{n}{plt}\PY{o}{.}\PY{n}{style}\PY{o}{.}\PY{n}{use}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{seaborn}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} importing Sci\PYZhy{}kit Learn libraries}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn} \PY{k}{import} \PY{n}{svm}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{,} \PY{n}{cross\PYZus{}val\PYZus{}score}\PY{p}{,} \PY{n}{KFold}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{RandomizedSearchCV}\PY{p}{,} \PY{n}{GridSearchCV}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{decomposition} \PY{k}{import} \PY{n}{PCA}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{preprocessing} \PY{k}{import} \PY{n}{StandardScaler}\PY{p}{,} \PY{n}{MinMaxScaler}\PY{p}{,} \PY{n}{Imputer}\PY{p}{,} \PY{n}{OneHotEncoder}\PY{p}{,} \PY{n}{LabelEncoder}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{pipeline} \PY{k}{import} \PY{n}{Pipeline}\PY{p}{,} \PY{n}{make\PYZus{}pipeline}\PY{p}{,} \PY{n}{FeatureUnion}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{base} \PY{k}{import} \PY{n}{BaseEstimator}\PY{p}{,} \PY{n}{TransformerMixin}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{classification\PYZus{}report}\PY{p}{,} \PY{n}{accuracy\PYZus{}score}\PY{p}{,} \PY{n}{roc\PYZus{}curve}\PY{p}{,} \PY{n}{confusion\PYZus{}matrix}\PY{p}{,} \PY{n}{precision\PYZus{}score}\PY{p}{,} \PY{n}{recall\PYZus{}score}\PY{p}{,} \PY{n}{f1\PYZus{}score}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{impute} \PY{k}{import} \PY{n}{SimpleImputer}
+         
+         \PY{c+c1}{\PYZsh{} importing Sci\PYZhy{}py libraries}
+         \PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{stats} \PY{k}{import} \PY{n}{ttest\PYZus{}ind}
+         
+         \PY{c+c1}{\PYZsh{} importing statsmodels to perform statistical analysis}
+         \PY{k+kn}{import} \PY{n+nn}{statsmodels}\PY{n+nn}{.}\PY{n+nn}{api} \PY{k}{as} \PY{n+nn}{sm}
+         \PY{k+kn}{from} \PY{n+nn}{scipy} \PY{k}{import} \PY{n}{stats}
+         \PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{stats} \PY{k}{import} \PY{n}{chi2\PYZus{}contingency}
+         \PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{stats} \PY{k}{import} \PY{n}{chisquare}
+         \PY{k+kn}{from} \PY{n+nn}{statsmodels}\PY{n+nn}{.}\PY{n+nn}{formula}\PY{n+nn}{.}\PY{n+nn}{api} \PY{k}{import} \PY{n}{ols}
+         
+         \PY{c+c1}{\PYZsh{} importing Predictive Analytics/ Machine Learning libraries}
+         \PY{k+kn}{from} \PY{n+nn}{xgboost} \PY{k}{import} \PY{n}{XGBClassifier}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{LogisticRegression}\PY{p}{,} \PY{n}{SGDClassifier}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{ensemble} \PY{k}{import} \PY{n}{RandomForestClassifier}\PY{p}{,} \PY{n}{AdaBoostClassifier}\PY{p}{,} \PY{n}{GradientBoostingClassifier}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{naive\PYZus{}bayes} \PY{k}{import} \PY{n}{GaussianNB}
+\end{Verbatim}
+
+
+    \hypertarget{part-1-obtaining-and-scrubbing-data}{%
+\section{PART 1 OBTAINING AND SCRUBBING
+DATA}\label{part-1-obtaining-and-scrubbing-data}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{c+c1}{\PYZsh{}extracting Dalia dataset for a quick feel of the available data}
+        
+        \PY{n}{basic\PYZus{}income}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{basic\PYZus{}income\PYZus{}dataset\PYZus{}dalia.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{basic\PYZus{}income}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}2}]:}   country\_code                                  uuid  age  gender  rural  \textbackslash{}
+        0           AT  f6e7ee00-deac-0133-4de8-0a81e8b09a82   61    male  rural   
+        1           AT  54f0f1c0-dda1-0133-a559-0a81e8b09a82   57    male  urban   
+        2           AT  83127080-da3d-0133-c74f-0a81e8b09a82   32    male  urban   
+        3           AT  15626d40-db13-0133-ea5c-0a81e8b09a82   45    male  rural   
+        4           AT  24954a70-db98-0133-4a64-0a81e8b09a82   41  female  urban   
+        5           AT  28583060-dbe2-0133-ff9c-0a81e8b09a82   26  female  rural   
+        6           AT  b50dbb80-da53-0133-8956-0a81e8b09a82   26  female  urban   
+        7           AT  dd743bb0-d9a5-0133-53b2-0a81e8b09a82   47    male  urban   
+        8           AT  4fde2370-da48-0133-3a42-0a81e8b09a82   34  female  urban   
+        9           AT  9949c4c0-da5f-0133-c832-0a81e8b09a82   22  female  urban   
+        
+          dem\_education\_level dem\_full\_time\_job dem\_has\_children  \textbackslash{}
+        0                  no                no               no   
+        1                high               yes              yes   
+        2                 NaN                no               no   
+        3                high               yes              yes   
+        4                high               yes              yes   
+        5                high               yes               no   
+        6              medium                no               no   
+        7              medium               yes               no   
+        8              medium               yes               no   
+        9                  no                no              yes   
+        
+          question\_bbi\_2016wave4\_basicincome\_awareness  \textbackslash{}
+        0                    I know something about it   
+        1                        I understand it fully   
+        2          I have heard just a little about it   
+        3          I have heard just a little about it   
+        4          I have heard just a little about it   
+        5                        I understand it fully   
+        6                    I know something about it   
+        7                    I know something about it   
+        8          I have heard just a little about it   
+        9                        I understand it fully   
+        
+          question\_bbi\_2016wave4\_basicincome\_vote  \textbackslash{}
+        0                        I would not vote   
+        1            I would probably vote for it   
+        2                        I would not vote   
+        3            I would probably vote for it   
+        4            I would probably vote for it   
+        5                 I would vote against it   
+        6            I would probably vote for it   
+        7            I would probably vote for it   
+        8            I would probably vote for it   
+        9                     I would vote for it   
+        
+                 question\_bbi\_2016wave4\_basicincome\_effect  \textbackslash{}
+        0                                None of the above   
+        1  A basic income would not affect my work choices   
+        2                       ‰Û\_ gain additional skills   
+        3                                    ‰Û\_ work less   
+        4                                None of the above   
+        5  A basic income would not affect my work choices   
+        6                         ‰Û\_ work as a freelancer   
+        7  A basic income would not affect my work choices   
+        8                                None of the above   
+        9                    ‰Û\_ do more volunteering work   
+        
+             question\_bbi\_2016wave4\_basicincome\_argumentsfor  \textbackslash{}
+        0                                  None of the above   
+        1  It increases appreciation for household work a{\ldots}   
+        2            It creates more equality of opportunity   
+        3     It reduces anxiety about financing basic needs   
+        4     It reduces anxiety about financing basic needs   
+        5  It encourages financial independence and self-{\ldots}   
+        6     It reduces anxiety about financing basic needs   
+        7  It increases appreciation for household work a{\ldots}   
+        8  It creates more equality of opportunity | It r{\ldots}   
+        9  It increases solidarity, because it is funded {\ldots}   
+        
+          question\_bbi\_2016wave4\_basicincome\_argumentsagainst age\_group         weight  
+        0                                  None of the above      40\_65  1.105.534.474  
+        1          It might encourage people to stop working      40\_65  1.533.248.826  
+        2  Foreigners might come to my country and take a{\ldots}      26\_39    0.977591916  
+        3                                  None of the above      40\_65  1.105.534.474  
+        4  It is impossible to finance | It might encoura{\ldots}      40\_65     58.731.136  
+        5  It is impossible to finance | It might encoura{\ldots}      26\_39    0.688873084  
+        6  Foreigners might come to my country and take a{\ldots}      26\_39    0.955387527  
+        7  It might encourage people to stop working | Fo{\ldots}      40\_65  1.533.248.826  
+        8  Foreigners might come to my country and take a{\ldots}      26\_39    0.955387527  
+        9  Foreigners might come to my country and take a{\ldots}      14\_25  1.041.864.825  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{c+c1}{\PYZsh{}getting the datatype info to understand the type of data e.g. categorical, etc.}
+        \PY{n}{basic\PYZus{}income}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}
+        \PY{n}{basic\PYZus{}income}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 9649 entries, 0 to 9648
+Data columns (total 15 columns):
+country\_code                                           9649 non-null object
+uuid                                                   9649 non-null object
+age                                                    9649 non-null int64
+gender                                                 9649 non-null object
+rural                                                  9649 non-null object
+dem\_education\_level                                    8986 non-null object
+dem\_full\_time\_job                                      9649 non-null object
+dem\_has\_children                                       9649 non-null object
+question\_bbi\_2016wave4\_basicincome\_awareness           9649 non-null object
+question\_bbi\_2016wave4\_basicincome\_vote                9649 non-null object
+question\_bbi\_2016wave4\_basicincome\_effect              9649 non-null object
+question\_bbi\_2016wave4\_basicincome\_argumentsfor        9649 non-null object
+question\_bbi\_2016wave4\_basicincome\_argumentsagainst    9649 non-null object
+age\_group                                              9649 non-null object
+weight                                                 9649 non-null object
+dtypes: int64(1), object(14)
+memory usage: 1.1+ MB
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}3}]:} (9649, 15)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{} checking for missing values}
+        \PY{n}{basic\PYZus{}income}\PY{o}{.}\PY{n}{isna}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}4}]:} country\_code                                             0
+        uuid                                                     0
+        age                                                      0
+        gender                                                   0
+        rural                                                    0
+        dem\_education\_level                                    663
+        dem\_full\_time\_job                                        0
+        dem\_has\_children                                         0
+        question\_bbi\_2016wave4\_basicincome\_awareness             0
+        question\_bbi\_2016wave4\_basicincome\_vote                  0
+        question\_bbi\_2016wave4\_basicincome\_effect                0
+        question\_bbi\_2016wave4\_basicincome\_argumentsfor          0
+        question\_bbi\_2016wave4\_basicincome\_argumentsagainst      0
+        age\_group                                                0
+        weight                                                   0
+        dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{basic\PYZus{}income}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{columns} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rural}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rural\PYZus{}or\PYZus{}urban}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dem\PYZus{}education\PYZus{}level}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{education\PYZus{}level}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dem\PYZus{}full\PYZus{}time\PYZus{}job}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{full\PYZus{}time\PYZus{}job}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dem\PYZus{}has\PYZus{}children}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{has\PYZus{}children}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{question\PYZus{}bbi\PYZus{}2016wave4\PYZus{}basicincome\PYZus{}awareness}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{awareness\PYZus{}of\PYZus{}basic\PYZus{}income}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{question\PYZus{}bbi\PYZus{}2016wave4\PYZus{}basicincome\PYZus{}vote}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{going\PYZus{}to\PYZus{}vote}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{question\PYZus{}bbi\PYZus{}2016wave4\PYZus{}basicincome\PYZus{}effect}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{effect\PYZus{}on\PYZus{}work\PYZus{}choices}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{question\PYZus{}bbi\PYZus{}2016wave4\PYZus{}basicincome\PYZus{}argumentsfor}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{argument\PYZus{}for}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{question\PYZus{}bbi\PYZus{}2016wave4\PYZus{}basicincome\PYZus{}argumentsagainst}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{argument\PYZus{}against}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{,}
+                  \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{basic\PYZus{}income}\PY{o}{.}\PY{n}{education\PYZus{}level}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}6}]:} array(['no', 'high', nan, 'medium', 'low'], dtype=object)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{basic\PYZus{}income}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{education\PYZus{}level}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{isna}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)} \PY{o}{/} \PY{n+nb}{len}\PY{p}{(}\PY{n}{basic\PYZus{}income}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}7}]:} 0.0687117836045186
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{basic\PYZus{}income}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{education\PYZus{}level}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{no}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+        \PY{n}{basic\PYZus{}income}\PY{o}{.}\PY{n}{education\PYZus{}level}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}8}]:} medium    3578
+        high      3270
+        low       1815
+        no         986
+        Name: education\_level, dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{basic\PYZus{}income}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{uuid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{weight}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{basic\PYZus{}income}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{n}{include}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{object}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}10}]:}        country\_code gender rural\_or\_urban education\_level full\_time\_job  \textbackslash{}
+         count          9649   9649           9649            9649          9649   
+         unique           28      2              2               4             2   
+         top              DE   male          urban          medium           yes   
+         freq           1420   5094           6878            3578          5702   
+         
+                has\_children  awareness\_of\_basic\_income                 going\_to\_vote  \textbackslash{}
+         count          9649                       9649                          9649   
+         unique            2                          4                             5   
+         top             yes  I know something about it  I would probably vote for it   
+         freq           5049                       3389                          3272   
+         
+                                          effect\_on\_work\_choices       argument\_for  \textbackslash{}
+         count                                              9649               9649   
+         unique                                                9                674   
+         top     A basic income would not affect my work choices  None of the above   
+         freq                                               3349               2163   
+         
+                  argument\_against age\_group  
+         count                9649      9649  
+         unique                881         3  
+         top     None of the above     40\_65  
+         freq                 1381      4896  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{c+c1}{\PYZsh{} check if there are any duplicates}
+         \PY{n}{basic\PYZus{}income}\PY{o}{.}\PY{n}{duplicated}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}11}]:} 29
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{basic\PYZus{}income}\PY{o}{.}\PY{n}{drop\PYZus{}duplicates}\PY{p}{(}\PY{n}{keep}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{first}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{data-visualization}{%
+\subsection{Data Visualization}\label{data-visualization}}
+
+    \hypertarget{understanding-basic-income-based-on-age-group}{%
+\paragraph{Understanding Basic Income Based on Age
+Group}\label{understanding-basic-income-based-on-age-group}}
+
+    This is quite a surprise fact, whereby all age groups exhibit close to
+similar understanding of what is basic income. Eventhough basic income
+is an old concept, it has not been actively discuss until recently.
+There following few news articles from New York Times: \textbf{The
+Future of Not Working:} As automation reduces the need for human labor,
+some Silicon Valley executives think a universal income will be the
+answer --- and the beta test is happening in Kenya. Here is the link to
+the article: https://nyti.ms/2VwOl0u \textbf{Universal Basic Income
+Didn't Fail in Finland. Finland Failed It.} Here is the link to the
+article: https://nyti.ms/2XT40od
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{c+c1}{\PYZsh{} Plotting basic income awareness based on their age group}
+         \PY{n}{sub\PYZus{}basic\PYZus{}income} \PY{o}{=} \PY{n}{basic\PYZus{}income}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{age\PYZus{}group}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{awareness\PYZus{}of\PYZus{}basic\PYZus{}income}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{n}{normalize}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{o}{.}\PY{n}{unstack}\PY{p}{(}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} reorder columns}
+         \PY{n}{cols} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{sub\PYZus{}basic\PYZus{}income}\PY{o}{.}\PY{n}{columns}\PY{o}{.}\PY{n}{values}\PY{p}{)}
+         \PY{n}{sub\PYZus{}basic\PYZus{}income} \PY{o}{=} \PY{n}{sub\PYZus{}basic\PYZus{}income}\PY{p}{[}\PY{p}{[}\PY{n}{cols}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n}{cols}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{cols}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,}\PY{n}{cols}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{]}\PY{p}{]}
+         
+         \PY{n}{sub\PYZus{}basic\PYZus{}income}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{stacked}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}\PY{n}{colormap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Wistia}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{sort\PYZus{}columns}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Basic income awareness based on their age group}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{bbox\PYZus{}to\PYZus{}anchor}\PY{o}{=}\PY{p}{(}\PY{l+m+mf}{1.04}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{loc}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{upper left}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}13}]:} <matplotlib.legend.Legend at 0x1bf18926278>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_24_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{basic-income-awareness-based-on-gender}{%
+\subsubsection{Basic Income Awareness Based on
+Gender}\label{basic-income-awareness-based-on-gender}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{c+c1}{\PYZsh{} Plotting basic income awareness based on gender}
+         \PY{n}{sub\PYZus{}basic\PYZus{}income} \PY{o}{=} \PY{n}{basic\PYZus{}income}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gender}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{awareness\PYZus{}of\PYZus{}basic\PYZus{}income}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{n}{normalize}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{o}{.}\PY{n}{unstack}\PY{p}{(}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} reorder columns}
+         \PY{n}{cols} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{sub\PYZus{}basic\PYZus{}income}\PY{o}{.}\PY{n}{columns}\PY{o}{.}\PY{n}{values}\PY{p}{)}
+         \PY{n}{sub\PYZus{}basic\PYZus{}income} \PY{o}{=} \PY{n}{sub\PYZus{}basic\PYZus{}income}\PY{p}{[}\PY{p}{[}\PY{n}{cols}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n}{cols}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{cols}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,}\PY{n}{cols}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{]}\PY{p}{]}
+         
+         \PY{n}{sub\PYZus{}basic\PYZus{}income}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{stacked}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}\PY{n}{colormap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Wistia}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{sort\PYZus{}columns}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Basic income awareness based on gender}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{bbox\PYZus{}to\PYZus{}anchor}\PY{o}{=}\PY{p}{(}\PY{l+m+mf}{1.04}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{loc}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{upper left}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}14}]:} <matplotlib.legend.Legend at 0x1bf18b79c88>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_26_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{basic-income-awareness-based-on-geograpy-rural-or-urban}{%
+\subsubsection{Basic Income Awareness Based on Geograpy (Rural or
+Urban)}\label{basic-income-awareness-based-on-geograpy-rural-or-urban}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{c+c1}{\PYZsh{} Plotting basic income awareness based on geography}
+         \PY{n}{sub\PYZus{}basic\PYZus{}income} \PY{o}{=} \PY{n}{basic\PYZus{}income}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rural\PYZus{}or\PYZus{}urban}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{awareness\PYZus{}of\PYZus{}basic\PYZus{}income}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{n}{normalize}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{o}{.}\PY{n}{unstack}\PY{p}{(}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} reorder columns}
+         \PY{n}{cols} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{sub\PYZus{}basic\PYZus{}income}\PY{o}{.}\PY{n}{columns}\PY{o}{.}\PY{n}{values}\PY{p}{)}
+         \PY{n}{sub\PYZus{}basic\PYZus{}income} \PY{o}{=} \PY{n}{sub\PYZus{}basic\PYZus{}income}\PY{p}{[}\PY{p}{[}\PY{n}{cols}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n}{cols}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{cols}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,}\PY{n}{cols}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{]}\PY{p}{]}
+         
+         \PY{n}{sub\PYZus{}basic\PYZus{}income}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{stacked}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}\PY{n}{colormap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Wistia}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{sort\PYZus{}columns}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Basic income awareness based on geography}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{bbox\PYZus{}to\PYZus{}anchor}\PY{o}{=}\PY{p}{(}\PY{l+m+mf}{1.04}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{loc}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{upper left}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}15}]:} <matplotlib.legend.Legend at 0x1bf18baff98>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_28_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{basic-income-awareness-based-on-education}{%
+\subsubsection{Basic Income Awareness Based on
+Education}\label{basic-income-awareness-based-on-education}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{c+c1}{\PYZsh{} Plotting basic income awareness based on education}
+         \PY{n}{sub\PYZus{}basic\PYZus{}income} \PY{o}{=} \PY{n}{basic\PYZus{}income}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{education\PYZus{}level}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{awareness\PYZus{}of\PYZus{}basic\PYZus{}income}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{n}{normalize}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{o}{.}\PY{n}{unstack}\PY{p}{(}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} reorder columns}
+         \PY{n}{cols} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{sub\PYZus{}basic\PYZus{}income}\PY{o}{.}\PY{n}{columns}\PY{o}{.}\PY{n}{values}\PY{p}{)}
+         \PY{n}{sub\PYZus{}basic\PYZus{}income} \PY{o}{=} \PY{n}{sub\PYZus{}basic\PYZus{}income}\PY{p}{[}\PY{p}{[}\PY{n}{cols}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n}{cols}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{cols}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,}\PY{n}{cols}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{]}\PY{p}{]}
+         
+         \PY{n}{sub\PYZus{}basic\PYZus{}income}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{stacked}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}\PY{n}{colormap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Wistia}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{sort\PYZus{}columns}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Basic income awareness based on education level}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{bbox\PYZus{}to\PYZus{}anchor}\PY{o}{=}\PY{p}{(}\PY{l+m+mf}{1.04}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{loc}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{upper left}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}16}]:} <matplotlib.legend.Legend at 0x1bf18c38320>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_30_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{basic-income-awareness-based-on-whether-they-are-full-time-job-or-not}{%
+\subsubsection{Basic Income Awareness Based on Whether They Are
+Full-Time Job or
+Not}\label{basic-income-awareness-based-on-whether-they-are-full-time-job-or-not}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{c+c1}{\PYZsh{} Plotting basic income awareness based on whether they are on full\PYZhy{}time job or not}
+         \PY{n}{sub\PYZus{}basic\PYZus{}income} \PY{o}{=} \PY{n}{basic\PYZus{}income}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{full\PYZus{}time\PYZus{}job}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{awareness\PYZus{}of\PYZus{}basic\PYZus{}income}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{n}{normalize}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{o}{.}\PY{n}{unstack}\PY{p}{(}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} reorder columns}
+         \PY{n}{cols} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{sub\PYZus{}basic\PYZus{}income}\PY{o}{.}\PY{n}{columns}\PY{o}{.}\PY{n}{values}\PY{p}{)}
+         \PY{n}{sub\PYZus{}basic\PYZus{}income} \PY{o}{=} \PY{n}{sub\PYZus{}basic\PYZus{}income}\PY{p}{[}\PY{p}{[}\PY{n}{cols}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n}{cols}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{cols}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,}\PY{n}{cols}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{]}\PY{p}{]}
+         
+         \PY{n}{sub\PYZus{}basic\PYZus{}income}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{stacked}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}\PY{n}{colormap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Wistia}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{sort\PYZus{}columns}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Basic income awareness based on whether they are on full\PYZhy{}time job or not}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{bbox\PYZus{}to\PYZus{}anchor}\PY{o}{=}\PY{p}{(}\PY{l+m+mf}{1.04}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{loc}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{upper left}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}17}]:} <matplotlib.legend.Legend at 0x1bf18ce54e0>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_32_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{c+c1}{\PYZsh{} Plotting basic income awareness based on whether they have children or not}
+         \PY{n}{sub\PYZus{}basic\PYZus{}income} \PY{o}{=} \PY{n}{basic\PYZus{}income}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{has\PYZus{}children}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{awareness\PYZus{}of\PYZus{}basic\PYZus{}income}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{n}{normalize}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{o}{.}\PY{n}{unstack}\PY{p}{(}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} reorder columns}
+         \PY{n}{cols} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{sub\PYZus{}basic\PYZus{}income}\PY{o}{.}\PY{n}{columns}\PY{o}{.}\PY{n}{values}\PY{p}{)}
+         \PY{n}{sub\PYZus{}basic\PYZus{}income} \PY{o}{=} \PY{n}{sub\PYZus{}basic\PYZus{}income}\PY{p}{[}\PY{p}{[}\PY{n}{cols}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n}{cols}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{cols}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,}\PY{n}{cols}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{]}\PY{p}{]}
+         
+         \PY{n}{sub\PYZus{}basic\PYZus{}income}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{stacked}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}\PY{n}{colormap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Wistia}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{sort\PYZus{}columns}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Basic income awareness based on whether they have children or not}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{bbox\PYZus{}to\PYZus{}anchor}\PY{o}{=}\PY{p}{(}\PY{l+m+mf}{1.04}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{loc}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{upper left}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}18}]:} <matplotlib.legend.Legend at 0x1bf18d4d128>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{c+c1}{\PYZsh{} Plotting basic income awareness based on whether they are going to vote}
+         \PY{n}{sub\PYZus{}basic\PYZus{}income} \PY{o}{=} \PY{n}{basic\PYZus{}income}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{going\PYZus{}to\PYZus{}vote}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{awareness\PYZus{}of\PYZus{}basic\PYZus{}income}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{n}{normalize}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{o}{.}\PY{n}{unstack}\PY{p}{(}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} reorder columns}
+         \PY{n}{cols} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{sub\PYZus{}basic\PYZus{}income}\PY{o}{.}\PY{n}{columns}\PY{o}{.}\PY{n}{values}\PY{p}{)}
+         \PY{n}{sub\PYZus{}basic\PYZus{}income} \PY{o}{=} \PY{n}{sub\PYZus{}basic\PYZus{}income}\PY{p}{[}\PY{p}{[}\PY{n}{cols}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n}{cols}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{cols}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,}\PY{n}{cols}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{]}\PY{p}{]}
+         
+         \PY{n}{sub\PYZus{}basic\PYZus{}income}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{stacked}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}\PY{n}{colormap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Wistia}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{sort\PYZus{}columns}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Basic income awareness based on whether they going to vote}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{bbox\PYZus{}to\PYZus{}anchor}\PY{o}{=}\PY{p}{(}\PY{l+m+mf}{1.04}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{loc}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{upper left}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}19}]:} <matplotlib.legend.Legend at 0x1bf187cac88>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_34_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{c+c1}{\PYZsh{} Plotting basic income awareness based on work choices}
+         \PY{n}{sub\PYZus{}basic\PYZus{}income} \PY{o}{=} \PY{n}{basic\PYZus{}income}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{effect\PYZus{}on\PYZus{}work\PYZus{}choices}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{awareness\PYZus{}of\PYZus{}basic\PYZus{}income}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{n}{normalize}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{o}{.}\PY{n}{unstack}\PY{p}{(}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} reorder columns}
+         \PY{n}{cols} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{sub\PYZus{}basic\PYZus{}income}\PY{o}{.}\PY{n}{columns}\PY{o}{.}\PY{n}{values}\PY{p}{)}
+         \PY{n}{sub\PYZus{}basic\PYZus{}income} \PY{o}{=} \PY{n}{sub\PYZus{}basic\PYZus{}income}\PY{p}{[}\PY{p}{[}\PY{n}{cols}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n}{cols}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{cols}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,}\PY{n}{cols}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{]}\PY{p}{]}
+         
+         \PY{n}{sub\PYZus{}basic\PYZus{}income}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{stacked}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}\PY{n}{colormap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Wistia}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{sort\PYZus{}columns}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Basic income awareness based on work choices}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{bbox\PYZus{}to\PYZus{}anchor}\PY{o}{=}\PY{p}{(}\PY{l+m+mf}{1.04}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{loc}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{upper left}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}20}]:} <matplotlib.legend.Legend at 0x1bf19e19b38>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_35_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{c+c1}{\PYZsh{}\PYZsh{} Plotting basic income vote in Greece}
+         \PY{n}{sub\PYZus{}basic\PYZus{}income} \PY{o}{=} \PY{n}{basic\PYZus{}income}\PY{p}{[}\PY{n}{basic\PYZus{}income}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{country\PYZus{}code}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{DE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rural\PYZus{}or\PYZus{}urban}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{education\PYZus{}level}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{full\PYZus{}time\PYZus{}job}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{going\PYZus{}to\PYZus{}vote}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{n}{normalize}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{o}{.}\PY{n}{unstack}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{sub\PYZus{}basic\PYZus{}income}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{stacked}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}\PY{n}{colormap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Spectral}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{sort\PYZus{}columns}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Basic income vote by geography and job situation in Germany}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{sub\PYZus{}basic\PYZus{}income}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}21}]:} going\_to\_vote                                 I would not vote  \textbackslash{}
+         rural\_or\_urban education\_level full\_time\_job                     
+         rural          high            no                            1   
+                                        yes                           3   
+                        low             no                            9   
+                                        yes                          11   
+                        medium          no                            9   
+         
+         going\_to\_vote                                 I would probably vote against it  \textbackslash{}
+         rural\_or\_urban education\_level full\_time\_job                                     
+         rural          high            no                                            6   
+                                        yes                                          32   
+                        low             no                                           12   
+                                        yes                                          10   
+                        medium          no                                            8   
+         
+         going\_to\_vote                                 I would probably vote for it  \textbackslash{}
+         rural\_or\_urban education\_level full\_time\_job                                 
+         rural          high            no                                       11   
+                                        yes                                      20   
+                        low             no                                       26   
+                                        yes                                      29   
+                        medium          no                                       35   
+         
+         going\_to\_vote                                 I would vote against it  \textbackslash{}
+         rural\_or\_urban education\_level full\_time\_job                            
+         rural          high            no                                   2   
+                                        yes                                 20   
+                        low             no                                   6   
+                                        yes                                 12   
+                        medium          no                                  10   
+         
+         going\_to\_vote                                 I would vote for it  
+         rural\_or\_urban education\_level full\_time\_job                       
+         rural          high            no                              17  
+                                        yes                             13  
+                        low             no                              21  
+                                        yes                             16  
+                        medium          no                              35  
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{c+c1}{\PYZsh{}\PYZsh{} Plotting basic income vote in Greece}
+         \PY{n}{sub\PYZus{}basic\PYZus{}income} \PY{o}{=} \PY{n}{basic\PYZus{}income}\PY{p}{[}\PY{n}{basic\PYZus{}income}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{country\PYZus{}code}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SI}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rural\PYZus{}or\PYZus{}urban}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{education\PYZus{}level}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{full\PYZus{}time\PYZus{}job}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{going\PYZus{}to\PYZus{}vote}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{n}{normalize}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{o}{.}\PY{n}{unstack}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{sub\PYZus{}basic\PYZus{}income}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{stacked}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}\PY{n}{colormap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Spectral}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{sort\PYZus{}columns}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Basic income vote by geography and job situation in Greece}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{sub\PYZus{}basic\PYZus{}income}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}22}]:} going\_to\_vote                                 I would not vote  \textbackslash{}
+         rural\_or\_urban education\_level full\_time\_job                     
+         rural          high            yes                         NaN   
+                        low             no                          NaN   
+                                        yes                         NaN   
+                        medium          no                          NaN   
+                                        yes                         NaN   
+         
+         going\_to\_vote                                 I would probably vote against it  \textbackslash{}
+         rural\_or\_urban education\_level full\_time\_job                                     
+         rural          high            yes                                         NaN   
+                        low             no                                          1.0   
+                                        yes                                         1.0   
+                        medium          no                                          NaN   
+                                        yes                                         1.0   
+         
+         going\_to\_vote                                 I would probably vote for it  \textbackslash{}
+         rural\_or\_urban education\_level full\_time\_job                                 
+         rural          high            yes                                     2.0   
+                        low             no                                      NaN   
+                                        yes                                     1.0   
+                        medium          no                                      1.0   
+                                        yes                                     NaN   
+         
+         going\_to\_vote                                 I would vote for it  
+         rural\_or\_urban education\_level full\_time\_job                       
+         rural          high            yes                            NaN  
+                        low             no                             2.0  
+                                        yes                            2.0  
+                        medium          no                             1.0  
+                                        yes                            1.0  
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_37_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{c+c1}{\PYZsh{}\PYZsh{} Plotting basic income vote in Greece}
+         \PY{n}{sub\PYZus{}basic\PYZus{}income} \PY{o}{=} \PY{n}{basic\PYZus{}income}\PY{p}{[}\PY{n}{basic\PYZus{}income}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{country\PYZus{}code}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{GR}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rural\PYZus{}or\PYZus{}urban}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{education\PYZus{}level}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{full\PYZus{}time\PYZus{}job}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{going\PYZus{}to\PYZus{}vote}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{n}{normalize}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{o}{.}\PY{n}{unstack}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{sub\PYZus{}basic\PYZus{}income}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{stacked}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}\PY{n}{colormap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Spectral}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{sort\PYZus{}columns}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Basic income vote by geography and job situation in Greece}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{sub\PYZus{}basic\PYZus{}income}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}23}]:} going\_to\_vote                                 I would not vote  \textbackslash{}
+         rural\_or\_urban education\_level full\_time\_job                     
+         rural          high            no                          NaN   
+                                        yes                         NaN   
+                        low             no                          1.0   
+                                        yes                         NaN   
+                        medium          no                          NaN   
+         
+         going\_to\_vote                                 I would probably vote against it  \textbackslash{}
+         rural\_or\_urban education\_level full\_time\_job                                     
+         rural          high            no                                          NaN   
+                                        yes                                         NaN   
+                        low             no                                          NaN   
+                                        yes                                         1.0   
+                        medium          no                                          NaN   
+         
+         going\_to\_vote                                 I would probably vote for it  \textbackslash{}
+         rural\_or\_urban education\_level full\_time\_job                                 
+         rural          high            no                                      3.0   
+                                        yes                                     2.0   
+                        low             no                                      NaN   
+                                        yes                                     NaN   
+                        medium          no                                      1.0   
+         
+         going\_to\_vote                                 I would vote against it  \textbackslash{}
+         rural\_or\_urban education\_level full\_time\_job                            
+         rural          high            no                                 NaN   
+                                        yes                                1.0   
+                        low             no                                 NaN   
+                                        yes                                NaN   
+                        medium          no                                 NaN   
+         
+         going\_to\_vote                                 I would vote for it  
+         rural\_or\_urban education\_level full\_time\_job                       
+         rural          high            no                             2.0  
+                                        yes                            2.0  
+                        low             no                             1.0  
+                                        yes                            1.0  
+                        medium          no                             3.0  
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_38_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{hypothesis-testing}{%
+\subsection{Hypothesis Testing}\label{hypothesis-testing}}
+
+    This section is to fine-tune the participants propensity to vote or not.
+We are combining those who are stating `I would probably vote for it'
+and `I would vote for it' as they will vote for basic income. And, we
+will removing those who stated `I would vote against it' and I would
+probably vote against it'.
+
+\begin{quote}
+Based on the initial extraction of survey dataset, a resounding 72\% of
+the participants will either vote or probably will vote for basic
+income.
+\end{quote}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{c+c1}{\PYZsh{} extracting the datatype}
+         \PY{n}{basic\PYZus{}income}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{going\PYZus{}to\PYZus{}vote}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}24}]:} array(['I would not vote', 'I would probably vote for it',
+                'I would vote against it', 'I would vote for it',
+                'I would probably vote against it'], dtype=object)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{c+c1}{\PYZsh{} make new column with vote or not for it}
+         
+         \PY{k}{def} \PY{n+nf}{vote\PYZus{}or\PYZus{}no}\PY{p}{(}\PY{n}{result}\PY{p}{)}\PY{p}{:}
+             \PY{k}{if} \PY{n}{result} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{I would probably vote for it}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+                 \PY{k}{return} \PY{l+m+mi}{1}
+             \PY{k}{elif} \PY{n}{result} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{I would vote for it}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+                 \PY{k}{return} \PY{l+m+mi}{1}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{k}{return} \PY{l+m+mi}{0}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{n}{basic\PYZus{}income}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{results}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{basic\PYZus{}income}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{going\PYZus{}to\PYZus{}vote}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{vote\PYZus{}or\PYZus{}no}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{c+c1}{\PYZsh{} removing rows where they would not vote}
+         
+         \PY{n}{basic\PYZus{}income} \PY{o}{=} \PY{n}{basic\PYZus{}income}\PY{p}{[}\PY{n}{basic\PYZus{}income}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{going\PYZus{}to\PYZus{}vote}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{!=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{I would not vote}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{c+c1}{\PYZsh{} checking the values}
+         
+         \PY{n}{basic\PYZus{}income}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{results}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{n}{normalize} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}28}]:} 1    0.716917
+         0    0.283083
+         Name: results, dtype: float64
+\end{Verbatim}
+            
+    \hypertarget{hypothesis-test-1-average-age-and-going-to-vote}{%
+\subsubsection{Hypothesis Test 1 Average Age and Going to
+Vote}\label{hypothesis-test-1-average-age-and-going-to-vote}}
+
+\begin{quote}
+Null Hypothesis: Average age of someone that would vote for basic income
+== average age of someone that would not vote for basic income H0: = μ1
+μ2 Alternative Hypothesis: Average of some one that would vote for basic
+income != average of age someone that would not vote for basic income
+HA: μ1 ≠ μ2
+\end{quote}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{c+c1}{\PYZsh{} average age of someone that would vote for basic income}
+         \PY{n}{basic\PYZus{}income}\PY{p}{[}\PY{n}{basic\PYZus{}income}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{results}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}29}]:} 37.76321422690598
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{8}\PY{p}{,} \PY{l+m+mi}{6}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{ax1} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{121}\PY{p}{)}
+         \PY{n}{basic\PYZus{}income}\PY{p}{[}\PY{n}{basic\PYZus{}income}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{results}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{ax} \PY{o}{=} \PY{n}{ax1}\PY{p}{)}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Vote For}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{ax2} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{122}\PY{p}{)}
+         \PY{n}{basic\PYZus{}income}\PY{p}{[}\PY{n}{basic\PYZus{}income}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{results}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{ax} \PY{o}{=} \PY{n}{ax2}\PY{p}{)}
+         \PY{n}{ax2}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Vote Against}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_48_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{c+c1}{\PYZsh{} Find the average difference in age}
+         \PY{n}{original\PYZus{}diff} \PY{o}{=} \PY{n+nb}{abs}\PY{p}{(}\PY{n}{basic\PYZus{}income}\PY{p}{[}\PY{n}{basic\PYZus{}income}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{results}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{basic\PYZus{}income}\PY{p}{[}\PY{n}{basic\PYZus{}income}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{results}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n}{original\PYZus{}diff}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}31}]:} 1.2301135462383073
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{n}{basic\PYZus{}income}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{/} \PY{l+m+mi}{2}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}32}]:} 4235.5
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{c+c1}{\PYZsh{} Split the data into 2 random samples and see what the difference.  Repeat this 10,000 times to see how often the }
+         \PY{c+c1}{\PYZsh{} difference is greater than 1.2 (my original difference)}
+         
+         \PY{n}{my\PYZus{}diffs} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{10000}\PY{p}{)}\PY{p}{:}
+             \PY{n}{sample\PYZus{}a} \PY{o}{=} \PY{n}{basic\PYZus{}income}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sample}\PY{p}{(}\PY{n+nb}{int}\PY{p}{(}\PY{n}{basic\PYZus{}income}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+             \PY{n}{sample\PYZus{}b} \PY{o}{=} \PY{n}{basic\PYZus{}income}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{sample\PYZus{}a}\PY{o}{.}\PY{n}{index}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+             \PY{n}{diff} \PY{o}{=} \PY{n+nb}{abs}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{sample\PYZus{}a}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{sample\PYZus{}b}\PY{p}{)}\PY{p}{)}
+             \PY{n}{my\PYZus{}diffs}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{diff}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{my\PYZus{}diffs}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{axvline}\PY{p}{(}\PY{n}{original\PYZus{}diff}\PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linewidth} \PY{o}{=} \PY{l+m+mi}{5}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_52_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{n}{my\PYZus{}count} \PY{o}{=} \PY{l+m+mi}{0}
+         \PY{k}{for} \PY{n}{indv\PYZus{}diff} \PY{o+ow}{in} \PY{n}{my\PYZus{}diffs}\PY{p}{:}
+             \PY{k}{if} \PY{n}{indv\PYZus{}diff} \PY{o}{\PYZgt{}} \PY{n}{original\PYZus{}diff}\PY{p}{:}
+                 \PY{n}{my\PYZus{}count} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}36}]:} \PY{n}{my\PYZus{}count} \PY{o}{/} \PY{n+nb}{len}\PY{p}{(}\PY{n}{my\PYZus{}diffs}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}36}]:} 0.0
+\end{Verbatim}
+            
+    \textbf{T-TEST} \textbf{INTERPRETING HYPOTHESIS 1 T-TEST}
+
+In performing a hypothesis test in statistics, a p-value determine the
+significance of results. If the p-value is a number between 0 and 1 and
+interpreted in the following way: A small p-value (typically ≤ 0.05)
+indicates strong evidence against the null hypothesis, so you reject the
+null hypothesis.
+
+The Hypothesis 1 T-Test below indicates a high p-value. Therefore we
+ACCEPT ALTERNATIVE HYPOTHESIS that there is a statistically significant
+difference in the age group and going to vote. The results are
+statistically significant at alpha = 0.05
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{n}{ttest\PYZus{}ind}\PY{p}{(}\PY{n}{basic\PYZus{}income}\PY{p}{[}\PY{n}{basic\PYZus{}income}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{results}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{basic\PYZus{}income}\PY{p}{[}\PY{n}{basic\PYZus{}income}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{results}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}37}]:} Ttest\_indResult(statistic=-4.205480480541265, pvalue=2.6321055968143773e-05)
+\end{Verbatim}
+            
+    \textbf{WELCH'S T-TEST}
+
+The Hypothesis 1 Welch's T-Test below indicates a high p-value.
+Therefore we ACCEPT ALTERNATIVE HYPOTHESIS that there is a statistically
+significant difference in the age group and going to vote.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}38}]:} \PY{c+c1}{\PYZsh{} running welch\PYZsq{}s t\PYZhy{}test}
+         
+         \PY{n}{stats}\PY{o}{.}\PY{n}{ttest\PYZus{}ind}\PY{p}{(}\PY{n}{basic\PYZus{}income}\PY{p}{[}\PY{n}{basic\PYZus{}income}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{results}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{basic\PYZus{}income}\PY{p}{[}\PY{n}{basic\PYZus{}income}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{results}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{equal\PYZus{}var}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}38}]:} Ttest\_indResult(statistic=-4.238137204839117, pvalue=2.2993164701316606e-05)
+\end{Verbatim}
+            
+    \textbf{EFFECT SIZE (COHEN'S d) Cohen suggested that:}
+
+d=0.2 be considered a `small' effect size
+
+d=0.5 represents a `medium' effect size
+
+d=0.8 a `large' effect size.
+
+This means that if two groups' means don't differ by 0.2 standard
+deviations or more, the difference is trivial, even if it is
+statistically signficant.
+
+The positive (+) or negative (-) sign of Cohen's d depends on which
+sample means that we label for experimental group (C1), and control
+group (C2), then a negative effect size indicates the effect decreases
+your mean, and a positive effect size indicates that the effect
+increases your mean. If C1 is bigger than C2, your effect size will be
+positive. If the C2 mean is larger than C1, then the effect size will be
+negative. In short, the sign of Cohen's d effect tells you the direction
+of the effect.
+
+The Hypothesis 2 Effect Size (Cohen's d) below indicates a lower than
+0.2 d-value (regardless of the negative sign). Therefore, we can
+conclude that the effect size is very small.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}39}]:} \PY{c+c1}{\PYZsh{} running effect size calculation}
+         
+         \PY{k}{def} \PY{n+nf}{cohens\PYZus{}d}\PY{p}{(}\PY{n}{group1}\PY{p}{,} \PY{n}{group2}\PY{p}{)}\PY{p}{:}
+             \PY{n}{numer} \PY{o}{=} \PY{n}{group1}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{group2}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+             \PY{n}{n1}\PY{p}{,} \PY{n}{n2} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{group1}\PY{p}{)}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{group2}\PY{p}{)}
+             \PY{n}{var1}\PY{p}{,} \PY{n}{var2} \PY{o}{=} \PY{n}{group1}\PY{o}{.}\PY{n}{var}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{group2}\PY{o}{.}\PY{n}{var}\PY{p}{(}\PY{p}{)}
+             \PY{n}{pooled\PYZus{}var} \PY{o}{=} \PY{p}{(}\PY{n}{n1} \PY{o}{*} \PY{n}{var1} \PY{o}{+} \PY{n}{n2} \PY{o}{*} \PY{n}{var2}\PY{p}{)} \PY{o}{/} \PY{p}{(}\PY{n}{n1} \PY{o}{+} \PY{n}{n2}\PY{p}{)}
+             \PY{n}{denom} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{pooled\PYZus{}var}\PY{p}{)}
+             \PY{k}{return} \PY{n}{numer} \PY{o}{/} \PY{n}{denom}
+         \PY{n}{cohens\PYZus{}d}\PY{p}{(}\PY{n}{basic\PYZus{}income}\PY{p}{[}\PY{n}{basic\PYZus{}income}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{results}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{basic\PYZus{}income}\PY{p}{[}\PY{n}{basic\PYZus{}income}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{results}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}39}]:} -0.10142782813251647
+\end{Verbatim}
+            
+    \textbf{Outcome Hypothesis Test 1 Average Age and Going to Vote}
+
+\begin{quote}
+T-Test: Statistically significant with a pvalue=2.63
+\end{quote}
+
+\begin{quote}
+Welch's T-Test: Statistically significant with a pvalue=2.29
+\end{quote}
+
+\begin{quote}
+Cohen Effect Size: Small effect size with a - 0.01
+\end{quote}
+
+    \hypertarget{hypothesis-test-1-education-level-and-going-to-vote}{%
+\subsubsection{Hypothesis Test 1 Education Level and Going to
+Vote}\label{hypothesis-test-1-education-level-and-going-to-vote}}
+
+\begin{quote}
+Null Hypothesis: Education level of someone that would vote for basic
+income == education level of someone that would not vote for basic
+income H0: = μ1 μ2 Alternative Hypothesis: Education level of someone
+that would vote for basic income != education level someone that would
+not vote for basic income HA: μ1 ≠ μ2
+\end{quote}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}70}]:} \PY{n}{basic\PYZus{}income}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gender}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{results}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}70}]:} gender  results
+         female  1          2858
+                 0          1091
+         male    1          3215
+                 0          1307
+         Name: results, dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}72}]:} \PY{n}{table} \PY{o}{=} \PY{p}{[}\PY{p}{[}\PY{l+m+mi}{2858}\PY{p}{,} \PY{l+m+mi}{1091}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{3215}\PY{p}{,} \PY{l+m+mi}{1307}\PY{p}{]}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}73}]:} \PY{n}{chi2\PYZus{}contingency}\PY{p}{(}\PY{n}{table}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}73}]:} (1.6286564868261184,
+          0.20188897603825035,
+          1,
+          array([[2831.10341164, 1117.89658836],
+                 [3241.89658836, 1280.10341164]]))
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}74}]:} \PY{c+c1}{\PYZsh{} Percent Females for}
+         \PY{l+m+mi}{2858} \PY{o}{/} \PY{p}{(}\PY{l+m+mi}{2858} \PY{o}{+} \PY{l+m+mi}{1091}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}74}]:} 0.7237275259559383
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}75}]:} \PY{c+c1}{\PYZsh{} Percent Males for}
+         \PY{p}{(}\PY{l+m+mi}{3215}\PY{p}{)} \PY{o}{/} \PY{p}{(}\PY{l+m+mi}{3215} \PY{o}{+} \PY{l+m+mi}{1307}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}75}]:} 0.7109685979655019
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}103}]:} \PY{n}{stats}\PY{o}{.}\PY{n}{ttest\PYZus{}ind}\PY{p}{(}\PY{l+m+mf}{0.7237275259559383}\PY{p}{,} \PY{l+m+mf}{0.7109685979655019}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}103}]:} Ttest\_indResult(statistic=nan, pvalue=nan)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}101}]:} \PY{n}{obs} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mf}{2831.10341164}\PY{p}{,} \PY{l+m+mf}{1117.89658836}\PY{p}{]}\PY{p}{,}
+                          \PY{p}{[}\PY{l+m+mf}{3241.89658836}\PY{p}{,} \PY{l+m+mf}{1280.10341164}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+          \PY{n}{chi2}\PY{p}{,} \PY{n}{p}\PY{p}{,} \PY{n}{dof}\PY{p}{,} \PY{n}{expected} \PY{o}{=} \PY{n}{stats}\PY{o}{.}\PY{n}{chi2\PYZus{}contingency}\PY{p}{(}\PY{n}{obs}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{p}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0.9807143306191574
+
+    \end{Verbatim}
+
+    Feature Engineering
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}41}]:} \PY{c+c1}{\PYZsh{} recode voting}
+         \PY{k}{def} \PY{n+nf}{vote\PYZus{}coding}\PY{p}{(}\PY{n}{row}\PY{p}{)}\PY{p}{:}
+             \PY{k}{if} \PY{n}{row} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{I would vote for it}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{k}{return}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{for}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{k}{elif} \PY{n}{row} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{I would probably vote for it}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{k}{return}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{for}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{k}{elif} \PY{n}{row} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{I would vote against it}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{k}{return}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{against}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{k}{elif} \PY{n}{row} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{I would probably vote against it}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{k}{return}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{against}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{k}{elif} \PY{n}{row} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{I would not vote}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{k}{return}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{no\PYZus{}action}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} apply function}
+         \PY{n}{basic\PYZus{}income}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{vote}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{basic\PYZus{}income}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{going\PYZus{}to\PYZus{}vote}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{vote\PYZus{}coding}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}42}]:} \PY{c+c1}{\PYZsh{} drop all records who are not \PYZdq{}for\PYZdq{} or \PYZdq{}against\PYZdq{}}
+         \PY{n}{basic\PYZus{}income} \PY{o}{=} \PY{n}{basic\PYZus{}income}\PY{o}{.}\PY{n}{query}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{vote != }\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{no\PYZus{}action}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}43}]:} \PY{n}{basic\PYZus{}income}\PY{o}{.}\PY{n}{vote}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{n}{normalize}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}43}]:} for        0.716917
+         against    0.283083
+         Name: vote, dtype: float64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}44}]:} \PY{k}{def} \PY{n+nf}{awareness\PYZus{}coding}\PY{p}{(}\PY{n}{row}\PY{p}{)}\PY{p}{:}
+             \PY{k}{if} \PY{n}{row} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{I understand it fully}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{k}{return}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fully}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{k}{elif} \PY{n}{row} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{I know something about it}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{k}{return}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{something}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{k}{elif} \PY{n}{row} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{I have heard just a little about it}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{k}{return}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{little}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{k}{elif} \PY{n}{row} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{I have never heard of it}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{k}{return}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nothing}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{basic\PYZus{}income}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{awareness\PYZus{}of\PYZus{}basic\PYZus{}income}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{basic\PYZus{}income}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{awareness\PYZus{}of\PYZus{}basic\PYZus{}income}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{awareness\PYZus{}coding}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}45}]:} \PY{k}{def} \PY{n+nf}{effect\PYZus{}coding}\PY{p}{(}\PY{n}{row}\PY{p}{)}\PY{p}{:}
+             \PY{k}{if} \PY{n}{row} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{‰Û\PYZus{} stop working}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{k}{return}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{stop\PYZus{}working}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{k}{elif} \PY{n}{row} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{‰Û\PYZus{} work less}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{k}{return}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{work\PYZus{}less}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{k}{elif} \PY{n}{row} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{‰Û\PYZus{} do more volunteering work}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{k}{return}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{volunteering\PYZus{}work}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{k}{elif} \PY{n}{row} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{‰Û\PYZus{} spend more time with my family}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{k}{return}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{more\PYZus{}family\PYZus{}time}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{k}{elif} \PY{n}{row} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{‰Û\PYZus{} look for a different job}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{k}{return}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{different\PYZus{}job}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{k}{elif} \PY{n}{row} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{‰Û\PYZus{} work as a freelancer}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{k}{return}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{freelancer}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{k}{elif} \PY{n}{row} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{‰Û\PYZus{} gain additional skills}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{k}{return}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{additional\PYZus{}skills}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{k}{elif} \PY{n}{row} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{A basic income would not affect my work choices}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{k}{return}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{no\PYZus{}effect}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{k}{else}\PY{p}{:} \PY{k}{return}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{none\PYZus{}of\PYZus{}the\PYZus{}above}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             
+         \PY{n}{basic\PYZus{}income}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{effect\PYZus{}on\PYZus{}work\PYZus{}choices}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{basic\PYZus{}income}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{effect\PYZus{}on\PYZus{}work\PYZus{}choices}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{effect\PYZus{}coding}\PY{p}{)}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{str}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}46}]:} \PY{n}{basic\PYZus{}income}\PY{o}{.}\PY{n}{age}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{n}{percentiles}\PY{o}{=}\PY{p}{[}\PY{o}{.}\PY{l+m+mi}{2}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{4}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{6}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{8}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}46}]:} count    8471.000000
+         mean       38.111439
+         std        12.139920
+         min        14.000000
+         20\%        26.000000
+         40\%        35.000000
+         50\%        40.000000
+         60\%        42.000000
+         80\%        49.000000
+         max        65.000000
+         Name: age, dtype: float64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}47}]:} \PY{k}{def} \PY{n+nf}{age\PYZus{}groups}\PY{p}{(}\PY{n}{row}\PY{p}{)}\PY{p}{:}
+             \PY{k}{if} \PY{n}{row} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{l+m+mi}{26}\PY{p}{:} \PY{k}{return}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{14\PYZus{}26}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{k}{elif} \PY{n}{row} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{l+m+mi}{35}\PY{p}{:} \PY{k}{return}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{27\PYZus{}35}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{k}{elif} \PY{n}{row} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{l+m+mi}{42}\PY{p}{:} \PY{k}{return}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{36\PYZus{}42}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{k}{elif} \PY{n}{row} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{l+m+mi}{49}\PY{p}{:} \PY{k}{return}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{43\PYZus{}49}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{k}{else}\PY{p}{:} \PY{k}{return}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{above\PYZus{}50}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             
+         \PY{n}{basic\PYZus{}income}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{age\PYZus{}group}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{basic\PYZus{}income}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{age\PYZus{}groups}\PY{p}{)}
+         \PY{n}{basic\PYZus{}income}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}48}]:} \PY{n}{basic\PYZus{}income}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{age\PYZus{}group}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{n}{normalize}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{barh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{8}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_78_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}49}]:} \PY{n}{arg\PYZus{}for} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{It reduces anxiety about financing basic needs}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{It creates more equality of opportunity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{It encourages financial independence and self\PYZhy{}responsibility}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{It increases solidarity, because it is funded by everyone}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{It reduces bureaucracy and administrative expenses}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{It increases appreciation for household work and volunteering}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{None of the above}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{} count all arguments}
+         \PY{n}{counter} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}
+         
+         \PY{k}{for} \PY{n}{row} \PY{o+ow}{in} \PY{n}{basic\PYZus{}income}\PY{o}{.}\PY{n}{iterrows}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{arg\PYZus{}for}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{if} \PY{n}{arg\PYZus{}for}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o+ow}{in} \PY{n}{row}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{argument\PYZus{}for}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{|}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{counter}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{counter}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{+} \PY{l+m+mi}{1}
+         
+         \PY{c+c1}{\PYZsh{} create a new dictionary }
+         \PY{n}{dict\PYZus{}keys} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{less anxiety}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{more equality}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{financial independance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                      \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{more solidarity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{less bureaucracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{appreciates volunteering}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{none}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         
+         \PY{n}{arg\PYZus{}dict} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+         
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{arg\PYZus{}for}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{n}{arg\PYZus{}dict}\PY{p}{[}\PY{n}{dict\PYZus{}keys}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{]} \PY{o}{=} \PY{n}{counter}\PY{p}{[}\PY{n}{i}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{} sub\PYZhy{}df for counted arguments}
+         \PY{n}{sub\PYZus{}basic\PYZus{}income} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n}{arg\PYZus{}dict}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Arguments PRO basic income}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} plot}
+         \PY{n}{sub\PYZus{}basic\PYZus{}income}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{by}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{ascending}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{barh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Arguments PRO basic income}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}  
+                                                               \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{)}\PY{p}{,} \PY{n}{legend}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{darkgrey}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                                                               \PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Arguments PRO basic income}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_79_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}50}]:} \PY{n}{basic\PYZus{}income}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{less\PYZus{}anxiety}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{basic\PYZus{}income}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{argument\PYZus{}for}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{contains}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{anxiety}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{basic\PYZus{}income}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{more\PYZus{}equality}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{basic\PYZus{}income}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{argument\PYZus{}for}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{contains}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{equality}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}51}]:} \PY{n}{argument\PYZus{}against} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{It is impossible to finance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{It might encourage people to stop working}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Foreigners might come to my country and take advantage of the benefit}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{It is against the principle of linking merit and reward}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Only the people who need it most should get something from the state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{It increases dependence on the state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{None of the above}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{} count all arguments}
+         \PY{n}{counter} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}
+         
+         \PY{k}{for} \PY{n}{row} \PY{o+ow}{in} \PY{n}{basic\PYZus{}income}\PY{o}{.}\PY{n}{iterrows}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{argument\PYZus{}against}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{if} \PY{n}{argument\PYZus{}against}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o+ow}{in} \PY{n}{row}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{argument\PYZus{}against}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{|}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{counter}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{counter}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{+} \PY{l+m+mi}{1}
+         
+         \PY{c+c1}{\PYZsh{} create a new dictionary }
+         \PY{n}{dict\PYZus{}keys} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{impossible to finance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{people stop working}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{foreigners take advantage}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                      \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{against meritocracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{only for people in need}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{more dependence on state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{none}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         
+         \PY{n}{arg\PYZus{}dict} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+         
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{argument\PYZus{}against}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{n}{arg\PYZus{}dict}\PY{p}{[}\PY{n}{dict\PYZus{}keys}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{]} \PY{o}{=} \PY{n}{counter}\PY{p}{[}\PY{n}{i}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{} sub\PYZhy{}df for counted arguments}
+         \PY{n}{sub\PYZus{}basic\PYZus{}income} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n}{arg\PYZus{}dict}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Arguments AGAINST basic income}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} plot}
+         \PY{n}{sub\PYZus{}basic\PYZus{}income}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{by}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{ascending}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{barh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Arguments AGAINST basic income}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}  
+                                                               \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{)}\PY{p}{,} \PY{n}{legend}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{darkgrey}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                                                               \PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Arguments AGAINST basic income}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_81_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}52}]:} \PY{n}{basic\PYZus{}income}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{in\PYZus{}need}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{basic\PYZus{}income}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{argument\PYZus{}against}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{contains}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{need}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{basic\PYZus{}income}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{stop\PYZus{}working}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{basic\PYZus{}income}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{argument\PYZus{}against}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{contains}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{stop working}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{basic\PYZus{}income}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{too\PYZus{}costly}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{basic\PYZus{}income}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{argument\PYZus{}against}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{contains}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{impossible}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}53}]:} \PY{n}{basic\PYZus{}income}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{argument\PYZus{}for}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{argument\PYZus{}against}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}54}]:} \PY{n}{basic\PYZus{}income}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}54}]:}   country\_code  gender rural\_or\_urban education\_level full\_time\_job  \textbackslash{}
+         1           AT    male          urban            high           yes   
+         3           AT    male          rural            high           yes   
+         4           AT  female          urban            high           yes   
+         5           AT  female          rural            high           yes   
+         6           AT  female          urban          medium            no   
+         
+           has\_children awareness\_of\_basic\_income                 going\_to\_vote  \textbackslash{}
+         1          yes                     fully  I would probably vote for it   
+         3          yes                    little  I would probably vote for it   
+         4          yes                    little  I would probably vote for it   
+         5           no                     fully       I would vote against it   
+         6           no                 something  I would probably vote for it   
+         
+           effect\_on\_work\_choices age\_group  results     vote  less\_anxiety  \textbackslash{}
+         1              no\_effect  above\_50        1      for          True   
+         3              work\_less     43\_49        1      for          True   
+         4      none\_of\_the\_above     36\_42        1      for          True   
+         5              no\_effect     14\_26        0  against          True   
+         6             freelancer     14\_26        1      for          True   
+         
+            more\_equality  in\_need  stop\_working  too\_costly  
+         1          False    False          True       False  
+         3          False    False         False       False  
+         4          False    False          True        True  
+         5          False    False          True        True  
+         6          False    False          True       False  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}55}]:} \PY{n}{basic\PYZus{}income}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}55}]:} (8471, 17)
+\end{Verbatim}
+            
+    \hypertarget{machine-learning}{%
+\subsection{Machine Learning}\label{machine-learning}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}56}]:} \PY{c+c1}{\PYZsh{} define our features }
+         \PY{n}{features} \PY{o}{=} \PY{n}{basic\PYZus{}income}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{going\PYZus{}to\PYZus{}vote}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} define our target}
+         \PY{n}{target} \PY{o}{=} \PY{n}{basic\PYZus{}income}\PY{p}{[}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{going\PYZus{}to\PYZus{}vote}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{} create dummy variables}
+         \PY{n}{features} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{get\PYZus{}dummies}\PY{p}{(}\PY{n}{features}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}57}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{features}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+         \PY{n}{features}\PY{o}{.}\PY{n}{tail}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(8471, 66)
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}57}]:}       results  less\_anxiety  more\_equality  in\_need  stop\_working  too\_costly  \textbackslash{}
+         9643        1         False          False    False          True       False   
+         9644        1         False          False    False         False        True   
+         9645        0         False          False     True          True       False   
+         9647        1          True           True    False         False       False   
+         9648        0         False          False    False          True       False   
+         
+               country\_code\_AT  country\_code\_BE  country\_code\_BG  country\_code\_CY  \textbackslash{}
+         9643                0                0                0                0   
+         9644                0                0                0                0   
+         9645                0                0                0                0   
+         9647                0                0                0                0   
+         9648                0                0                0                0   
+         
+                 {\ldots}     effect\_on\_work\_choices\_stop\_working  \textbackslash{}
+         9643    {\ldots}                                       0   
+         9644    {\ldots}                                       0   
+         9645    {\ldots}                                       0   
+         9647    {\ldots}                                       0   
+         9648    {\ldots}                                       0   
+         
+               effect\_on\_work\_choices\_volunteering\_work  \textbackslash{}
+         9643                                         0   
+         9644                                         0   
+         9645                                         0   
+         9647                                         0   
+         9648                                         0   
+         
+               effect\_on\_work\_choices\_work\_less  age\_group\_14\_26  age\_group\_27\_35  \textbackslash{}
+         9643                                 0                1                0   
+         9644                                 0                0                0   
+         9645                                 0                0                0   
+         9647                                 0                0                0   
+         9648                                 0                0                0   
+         
+               age\_group\_36\_42  age\_group\_43\_49  age\_group\_above\_50  vote\_against  \textbackslash{}
+         9643                0                0                   0             0   
+         9644                1                0                   0             0   
+         9645                0                0                   1             1   
+         9647                0                1                   0             0   
+         9648                0                0                   1             1   
+         
+               vote\_for  
+         9643         1  
+         9644         1  
+         9645         0  
+         9647         1  
+         9648         0  
+         
+         [5 rows x 66 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}58}]:} \PY{c+c1}{\PYZsh{} split our data}
+         \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{features}\PY{p}{,} \PY{n}{target}\PY{p}{,} \PY{n}{test\PYZus{}size}\PY{o}{=}\PY{l+m+mf}{0.2}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}59}]:} \PY{c+c1}{\PYZsh{} instantiate the logistic regression}
+         \PY{n}{logreg} \PY{o}{=} \PY{n}{LogisticRegression}\PY{p}{(}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} train}
+         \PY{n}{logreg}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} predict}
+         \PY{n}{train\PYZus{}preds} \PY{o}{=} \PY{n}{logreg}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{)}
+         \PY{n}{test\PYZus{}preds} \PY{o}{=} \PY{n}{logreg}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} evaluate}
+         \PY{n}{train\PYZus{}accuracy\PYZus{}logreg} \PY{o}{=} \PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{train\PYZus{}preds}\PY{p}{)}
+         \PY{n}{test\PYZus{}accuracy\PYZus{}logreg} \PY{o}{=} \PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{test\PYZus{}preds}\PY{p}{)}
+         \PY{n}{report\PYZus{}logreg} \PY{o}{=} \PY{n}{classification\PYZus{}report}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{test\PYZus{}preds}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Logistic Regression}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Training Accuracy: }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{(train\PYZus{}accuracy\PYZus{}logreg * 100):.4\PYZcb{}}\PY{l+s+s2}{\PYZpc{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Test Accuracy:     }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{(test\PYZus{}accuracy\PYZus{}logreg * 100):.4\PYZcb{}}\PY{l+s+s2}{\PYZpc{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} store accuracy in a new dataframe}
+         \PY{n}{score\PYZus{}logreg} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Logistic Regression}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{train\PYZus{}accuracy\PYZus{}logreg}\PY{p}{,} \PY{n}{test\PYZus{}accuracy\PYZus{}logreg}\PY{p}{]}
+         \PY{n}{models} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{[}\PY{n}{score\PYZus{}logreg}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Logistic Regression
+------------------------
+Training Accuracy: 65.02\%
+Test Accuracy:     63.01\%
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}60}]:} \PY{c+c1}{\PYZsh{} create a baseline}
+         \PY{n}{forest} \PY{o}{=} \PY{n}{RandomForestClassifier}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}61}]:} \PY{c+c1}{\PYZsh{} create Grid              }
+         \PY{n}{param\PYZus{}grid} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{n\PYZus{}estimators}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mi}{80}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{120}\PY{p}{]}\PY{p}{,}
+                       \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{criterion}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gini}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{entropy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+                       \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{max\PYZus{}features}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{7}\PY{p}{,} \PY{l+m+mi}{9}\PY{p}{]}\PY{p}{,}         
+                       \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{max\PYZus{}depth}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{]}\PY{p}{,} 
+                       \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{min\PYZus{}samples\PYZus{}split}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{]}\PY{p}{\PYZcb{}}
+         
+         \PY{c+c1}{\PYZsh{} instantiate the tuned random forest}
+         \PY{n}{forest\PYZus{}grid\PYZus{}search} \PY{o}{=} \PY{n}{GridSearchCV}\PY{p}{(}\PY{n}{forest}\PY{p}{,} \PY{n}{param\PYZus{}grid}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} train the tuned random forest}
+         \PY{n}{forest\PYZus{}grid\PYZus{}search}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} print best estimator parameters found during the grid search}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{forest\PYZus{}grid\PYZus{}search}\PY{o}{.}\PY{n}{best\PYZus{}params\PYZus{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\{'criterion': 'entropy', 'max\_depth': 10, 'max\_features': 9, 'min\_samples\_split': 2, 'n\_estimators': 100\}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}62}]:} \PY{c+c1}{\PYZsh{} instantiate the tuned random forest with the best found parameters}
+         \PY{n}{forest} \PY{o}{=} \PY{n}{RandomForestClassifier}\PY{p}{(}\PY{n}{n\PYZus{}estimators}\PY{o}{=}\PY{l+m+mi}{120}\PY{p}{,} \PY{n}{criterion}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gini}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{max\PYZus{}features}\PY{o}{=}\PY{l+m+mi}{9}\PY{p}{,} 
+                                         \PY{n}{max\PYZus{}depth}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{min\PYZus{}samples\PYZus{}split}\PY{o}{=}\PY{l+m+mi}{4}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{4}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} train the random forest}
+         \PY{n}{forest}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} predict}
+         \PY{n}{train\PYZus{}preds} \PY{o}{=} \PY{n}{forest}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{)}
+         \PY{n}{test\PYZus{}preds} \PY{o}{=} \PY{n}{forest}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} evaluate}
+         \PY{n}{train\PYZus{}accuracy\PYZus{}forest} \PY{o}{=} \PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{train\PYZus{}preds}\PY{p}{)}
+         \PY{n}{test\PYZus{}accuracy\PYZus{}forest} \PY{o}{=} \PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{test\PYZus{}preds}\PY{p}{)}
+         \PY{n}{report\PYZus{}forest} \PY{o}{=} \PY{n}{classification\PYZus{}report}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{test\PYZus{}preds}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Random Forest}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Training Accuracy: }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{(train\PYZus{}accuracy\PYZus{}forest * 100):.4\PYZcb{}}\PY{l+s+s2}{\PYZpc{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Test Accuracy:     }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{(test\PYZus{}accuracy\PYZus{}forest * 100):.4\PYZcb{}}\PY{l+s+s2}{\PYZpc{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} append accuracy score to our dataframe}
+         \PY{n}{score\PYZus{}forest} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Random Forest}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{train\PYZus{}accuracy\PYZus{}forest}\PY{p}{,} \PY{n}{test\PYZus{}accuracy\PYZus{}forest}\PY{p}{]}
+         \PY{n}{models} \PY{o}{=} \PY{n}{models}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{[}\PY{n}{score\PYZus{}forest}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Random Forest
+-------------------------
+Training Accuracy: 75.13\%
+Test Accuracy:     62.71\%
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}63}]:} \PY{c+c1}{\PYZsh{} create a baseline}
+         \PY{n}{booster} \PY{o}{=} \PY{n}{xgb}\PY{o}{.}\PY{n}{XGBClassifier}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}64}]:} \PY{c+c1}{\PYZsh{} create Grid}
+         \PY{n}{param\PYZus{}grid} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{n\PYZus{}estimators}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mi}{100}\PY{p}{]}\PY{p}{,}
+                       \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{learning\PYZus{}rate}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mf}{0.05}\PY{p}{,} \PY{l+m+mf}{0.1}\PY{p}{]}\PY{p}{,} 
+                       \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{max\PYZus{}depth}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{]}\PY{p}{,}
+                       \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{colsample\PYZus{}bytree}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mf}{0.7}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}
+                       \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gamma}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mf}{0.0}\PY{p}{,} \PY{l+m+mf}{0.1}\PY{p}{,} \PY{l+m+mf}{0.2}\PY{p}{]}\PY{p}{\PYZcb{}}
+         
+         \PY{c+c1}{\PYZsh{} instantiate the tuned random forest}
+         \PY{n}{booster\PYZus{}grid\PYZus{}search} \PY{o}{=} \PY{n}{GridSearchCV}\PY{p}{(}\PY{n}{booster}\PY{p}{,} \PY{n}{param\PYZus{}grid}\PY{p}{,} \PY{n}{scoring}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} train the tuned random forest}
+         \PY{n}{booster\PYZus{}grid\PYZus{}search}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} print best estimator parameters found during the grid search}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{booster\PYZus{}grid\PYZus{}search}\PY{o}{.}\PY{n}{best\PYZus{}params\PYZus{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\{'colsample\_bytree': 0.7, 'gamma': 0.0, 'learning\_rate': 0.1, 'max\_depth': 3, 'n\_estimators': 100\}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}65}]:} \PY{c+c1}{\PYZsh{} instantiate tuned xgboost}
+         \PY{n}{booster} \PY{o}{=} \PY{n}{xgb}\PY{o}{.}\PY{n}{XGBClassifier}\PY{p}{(}\PY{n}{learning\PYZus{}rate}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{p}{,} \PY{n}{max\PYZus{}depth}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{n\PYZus{}estimators}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{,}
+                                     \PY{n}{colsample\PYZus{}bytree}\PY{o}{=}\PY{l+m+mf}{0.7}\PY{p}{,} \PY{n}{gamma}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{4}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} train}
+         \PY{n}{booster}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} predict}
+         \PY{n}{train\PYZus{}preds} \PY{o}{=} \PY{n}{booster}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{)}
+         \PY{n}{test\PYZus{}preds} \PY{o}{=} \PY{n}{booster}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} evaluate}
+         \PY{n}{train\PYZus{}accuracy\PYZus{}booster} \PY{o}{=} \PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{train\PYZus{}preds}\PY{p}{)}
+         \PY{n}{test\PYZus{}accuracy\PYZus{}booster} \PY{o}{=} \PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{test\PYZus{}preds}\PY{p}{)}
+         \PY{n}{report\PYZus{}booster} \PY{o}{=} \PY{n}{classification\PYZus{}report}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{test\PYZus{}preds}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{XGBoost}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Training Accuracy: }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{(train\PYZus{}accuracy\PYZus{}booster * 100):.4\PYZcb{}}\PY{l+s+s2}{\PYZpc{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Test Accuracy:     }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{(test\PYZus{}accuracy\PYZus{}booster * 100):.4\PYZcb{}}\PY{l+s+s2}{\PYZpc{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} append accuracy score to our dataframe}
+         \PY{n}{score\PYZus{}booster} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{XGBoost}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{train\PYZus{}accuracy\PYZus{}booster}\PY{p}{,} \PY{n}{test\PYZus{}accuracy\PYZus{}booster}\PY{p}{]}
+         \PY{n}{models} \PY{o}{=} \PY{n}{models}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{[}\PY{n}{score\PYZus{}booster}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+XGBoost
+-------------------------
+Training Accuracy: 71.96\%
+Test Accuracy:     62.18\%
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}66}]:} \PY{c+c1}{\PYZsh{} instantiate Support Vector Classification}
+         \PY{n}{svm} \PY{o}{=} \PY{n}{svm}\PY{o}{.}\PY{n}{SVC}\PY{p}{(}\PY{n}{kernel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rbf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{4}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} train}
+         \PY{n}{svm}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} predict}
+         \PY{n}{train\PYZus{}preds} \PY{o}{=} \PY{n}{svm}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{)}
+         \PY{n}{test\PYZus{}preds} \PY{o}{=} \PY{n}{svm}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} evaluate}
+         \PY{n}{train\PYZus{}accuracy\PYZus{}svm} \PY{o}{=} \PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{train\PYZus{}preds}\PY{p}{)}
+         \PY{n}{test\PYZus{}accuracy\PYZus{}svm} \PY{o}{=} \PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{test\PYZus{}preds}\PY{p}{)}
+         \PY{n}{report\PYZus{}svm} \PY{o}{=} \PY{n}{classification\PYZus{}report}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{test\PYZus{}preds}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Support Vector Machine}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Training Accuracy: }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{(train\PYZus{}accuracy\PYZus{}svm * 100):.4\PYZcb{}}\PY{l+s+s2}{\PYZpc{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Test Accuracy:     }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{(test\PYZus{}accuracy\PYZus{}svm * 100):.4\PYZcb{}}\PY{l+s+s2}{\PYZpc{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} append accuracy score to our dataframe}
+         \PY{n}{score\PYZus{}svm} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Support Vector Machine}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{train\PYZus{}accuracy\PYZus{}svm}\PY{p}{,} \PY{n}{test\PYZus{}accuracy\PYZus{}svm}\PY{p}{]}
+         \PY{n}{models} \PY{o}{=} \PY{n}{models}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{[}\PY{n}{score\PYZus{}svm}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Support Vector Machine
+-------------------------
+Training Accuracy: 62.19\%
+Test Accuracy:     61.06\%
+
+    \end{Verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
