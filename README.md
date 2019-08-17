@@ -14,11 +14,11 @@ THIRD This project attempts to leverage on a combinations of Hypothesis Testing 
 
 FOURTH The 3 key questions we are trying to answer - the summarized version to be discussed in the next section (Project Outcome).
 
-Based on the Dalia Research 2016 survey dataset, and predictive analytics: What is the possibility of predicting whether some will vote for or against basic income?
+1. Based on the Dalia Research 2016 survey dataset, and predictive analytics: What is the possibility of predicting whether some will vote for or against basic income?
 
-Based on the 2016 survey dataset, and hypothesis testing: What key factors that have significant influence on basic income voting outcome?
+2. Based on the 2016 survey dataset, and hypothesis testing: What key factors that have significant influence on basic income voting outcome?
 
-Based on the above two results, and drawing from recent debates on basic income (on mainstream and social media): What is the future of basic income in the future of work?
+3. Based on the above two results, and drawing from recent debates on basic income (on mainstream and social media): What is the future of basic income in the future of work?
 
 
 ## The Dataset
