@@ -1,5 +1,5 @@
 
-# Happy Income - Predicting the Future of Basic Incmoe in Europe
+# Happy Income - Predicting the Future of Basic Income in Europe
 
 
 ## Introduction
